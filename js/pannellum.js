@@ -33,7 +33,8 @@ function Viewer(container, initialConfig) {
 		specifiedPhotoSphereExcludes = [],
 		update = false, 
 		hotspotsCreated = false,
-		firstRender = false;
+		firstRender = false,
+		maxSize = 0;
 
 	var defaultConfig = {
 		hfov: 140,
@@ -193,6 +194,29 @@ function Viewer(container, initialConfig) {
 	var switcher = document.createElement('div');
 	switcher.className = 'pano-switcher';
 	container.parentNode.insertBefore(switcher, container.nextSibling);
+
+	// Find max size for canvas
+	var canvas = document.createElement('canvas');
+	var gl = canvas.getContext('experimental-webgl');
+	var maxSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+	var extension = gl.getExtension('WEBGL_lose_context');
+	if (extension) extension.loseContext();
+	var defaultSizes = [4096,8192,16384];
+	defaultSizes.forEach(function(size, i) {
+		if (defaultSizes[i+1]) {
+			if (maxSize >= defaultSizes[i] && maxSize < defaultSizes[i+1]) {
+				maxSize = defaultSizes[i];
+			}
+		} else if (maxSize >= defaultSizes[i]) {
+			maxSize = defaultSizes[i];
+		} else {
+			return;
+		}
+	});
+	for (var s in initialConfig.scenes) {
+		var panoMeta = initialConfig.scenes[s].panorama.split('.');
+		initialConfig.scenes[s].panorama = panoMeta[0] + '-' + maxSize + '.' + panoMeta[1];
+	}
 
 	// Load and process configuration
 	if (initialConfig.firstScene) {
