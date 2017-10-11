@@ -36,12 +36,12 @@ function Viewer(container, initialConfig) {
 		firstRender = false;
 
 	var defaultConfig = {
-		hfov: 100,
+		hfov: 140,
 		minHfov: 50,
-		maxHfov: 120,
+		maxHfov: 140,
 		pitch: 0,
-		minPitch: -60,
-		maxPitch: 60,
+		minPitch: 0,
+		maxPitch: 0,
 		yaw: 0,
 		minYaw: -180,
 		maxYaw: 180,
@@ -49,8 +49,8 @@ function Viewer(container, initialConfig) {
 		haov: 360,
 		vaov: 180,
 		vOffset: 0,
-		autoRotate: true,
-		autoRotateInactivityDelay: 1,
+		autoRotate: false,
+		autoRotateInactivityDelay: -1,
 		autoRotateStopDelay: undefined,
 		type: 'equirectangular',
 		northOffset: 0,
