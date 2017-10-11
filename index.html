@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Panorama Test</title>
+	<link rel="stylesheet" type="text/css" href="css/pannellum.css">
+	<script type="text/javascript" src="js/libpannellum.js"></script>
+	<script type="text/javascript" src="js/pannellum.js"></script>
+</head>
+<body style="background-color: black;">
+	<div id="panorama"></div>
+</body>
+<script type="text/javascript">
+	pannellum.viewer('panorama', {
+		'default': {
+			'firstScene': 'Daytime'
+		},
+		'scenes': {
+			'Daytime': {
+				'panorama': '22_Pano_DJI_0426-Pano.jpg',
+				'id': 'Daytime' // Must match key
+			},
+			'Nighttime': {
+				'panorama': '31a_DJI_0922-Pano.jpg',
+				'id': 'Nighttime'
+			},
+		},
+		'height': 500, // Optional. Defaults to 300px
+		'width': 900 // Optional. Defaults to 100% of parent
+	});
+</script>
+</html>
