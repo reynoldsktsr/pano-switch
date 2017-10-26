@@ -215,8 +215,18 @@ function Viewer(container, initialConfig) {
 	});
 	for (var s in initialConfig.scenes) {
 		var panoMeta = initialConfig.scenes[s].panorama.split('.');
-		initialConfig.scenes[s].panorama = panoMeta[0] + '-' + maxSize + '.' + panoMeta[1];
-	}
+		var newPath = '';
+		for (var i = 0; i < panoMeta.length; i++) {
+			newPath += panoMeta[i];
+			if (i == panoMeta.length - 2) {
+				newPath += '-' + maxSize;
+			}
+			if (i !== panoMeta.length - 1) {
+				newPath += '.'
+			}
+		}
+		initialConfig.scenes[s].panorama = newPath;
+	};
 
 	// Load and process configuration
 	if (initialConfig.firstScene) {
